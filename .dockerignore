@@ -1,0 +1,56 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Node
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build artifacts
+dist
+build
+coverage
+*.lcov
+
+# Test artifacts
+tests
+**/*.test.ts
+**/*.spec.ts
+vitest.config.ts
+
+# Editor / IDE
+.vscode
+.idea
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation (kept lean inside the image)
+docs
+README.md
+LICENSE
+CONTRIBUTING.md
+
+# CI / Docker
+.github
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.*.yml
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Lint / Format configs (not needed at runtime)
+.eslintrc*
+eslint.config.*
+.prettierrc*
+.prettierignore
