@@ -245,4 +245,3 @@ Pull requests welcome. A few ground rules:
 ## License
 
 MIT â€” see [LICENSE](LICENSE).
-
