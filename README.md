@@ -1,13 +1,13 @@
 # docker-ci-cd-demo
 
-[![CI](https://github.com/seyyidsahin2834/docker-ci-cd-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/seyyidsahin2834/docker-ci-cd-demo/actions/workflows/ci.yml)
-[![Docker](https://github.com/seyyidsahin2834/docker-ci-cd-demo/actions/workflows/docker.yml/badge.svg)](https://github.com/seyyidsahin2834/docker-ci-cd-demo/actions/workflows/docker.yml)
+[![CI](https://github.com/MSeyyidDev/docker-ci-cd-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/MSeyyidDev/docker-ci-cd-demo/actions/workflows/ci.yml)
+[![Docker](https://github.com/MSeyyidDev/docker-ci-cd-demo/actions/workflows/docker.yml/badge.svg)](https://github.com/MSeyyidDev/docker-ci-cd-demo/actions/workflows/docker.yml)
 [![Node](https://img.shields.io/badge/node-22.x-brightgreen.svg)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A focused, portfolio-grade demo of **Docker** + **GitHub Actions CI/CD** built around a small but real **Node.js + TypeScript + Express** Task API. The application is intentionally compact — the showpiece is the pipeline, the image, and the layered architecture.
+A focused, portfolio-grade demo of **Docker** + **GitHub Actions CI/CD** built around a small but real **Node.js + TypeScript + Express** Task API. The application is intentionally compact â€” the showpiece is the pipeline, the image, and the layered architecture.
 
-> **TL;DR** — A clean, layered Task API (domain / repository / service / controller / route) shipped through a multi-stage Docker image and validated by a Node 20 + 22 CI matrix and a Docker smoke-test workflow.
+> **TL;DR** â€” A clean, layered Task API (domain / repository / service / controller / route) shipped through a multi-stage Docker image and validated by a Node 20 + 22 CI matrix and a Docker smoke-test workflow.
 
 ---
 
@@ -19,7 +19,7 @@ This project answers a single question for reviewers:
 
 It deliberately keeps the domain trivial (CRUD on tasks with priority and due date) so attention can stay on:
 
-- A clean **OO layering** (`domain` → `repository` → `service` → `controller` → `routes`).
+- A clean **OO layering** (`domain` â†’ `repository` â†’ `service` â†’ `controller` â†’ `routes`).
 - **Strict TypeScript**, **Zod**-validated request bodies, and structured error responses.
 - A **multi-stage Dockerfile** running as a non-root user with a real `HEALTHCHECK`.
 - Two **GitHub Actions** workflows: a Node 20+22 CI matrix and a Docker build + smoke test.
@@ -148,24 +148,42 @@ Stop with `docker compose down`.
 
 ---
 
+## 5-minute API demo
+
+```bash
+curl -s http://localhost:3000/health
+curl -s http://localhost:3000/tasks
+
+curl -s -X POST http://localhost:3000/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Ship portfolio demo","priority":"high","dueDate":"2026-05-15T00:00:00.000Z"}'
+
+curl -s -X POST http://localhost:3000/tasks/<id>/complete
+curl -i -X DELETE http://localhost:3000/tasks/<id>
+```
+
+Use the `id` returned by the create request for the complete/delete calls.
+
+---
+
 ## CI/CD
 
 Two workflows live under `.github/workflows/`:
 
-### `ci.yml` — Lint, test, build (matrix Node 20 + 22)
+### `ci.yml` â€” Lint, test, build (matrix Node 20 + 22)
 
 Runs on every push and PR to `main`:
 
 1. **Checkout** with `actions/checkout@v4`.
 2. **Set up Node** with `actions/setup-node@v4` using the built-in `npm` cache.
 3. **`npm ci`** for a deterministic install from the lockfile.
-4. **`npm run lint`** — ESLint flat config.
-5. **`npm run format:check`** — Prettier in verify mode.
-6. **`npm run test -- --coverage`** — Vitest with V8 coverage and an 80% threshold.
-7. **`npm run build`** — TypeScript compile.
+4. **`npm run lint`** â€” ESLint flat config.
+5. **`npm run format:check`** â€” Prettier in verify mode.
+6. **`npm run test -- --coverage`** â€” Vitest with V8 coverage and an 80% threshold.
+7. **`npm run build`** â€” TypeScript compile.
 8. Coverage from the Node 22 leg is uploaded as an `actions/upload-artifact@v4` artifact.
 
-### `docker.yml` — Build the image and smoke-test it
+### `docker.yml` â€” Build the image and smoke-test it
 
 Runs on every push to `main` and on manual `workflow_dispatch`:
 
@@ -174,14 +192,14 @@ Runs on every push to `main` and on manual `workflow_dispatch`:
 3. The container is launched and **smoke-tested**: a small loop polls `GET /health` until it returns `200`, then `GET /tasks` is also hit to make sure the seeded data is reachable.
 4. Image size is printed for awareness, then the container is torn down.
 
-> The Docker workflow intentionally does **not** push to a registry — this repo is a demo. Wiring `push: true` to GHCR is one line plus a `permissions: { packages: write }` block.
+> The Docker workflow intentionally does **not** push to a registry â€” this repo is a demo. Wiring `push: true` to GHCR is one line plus a `permissions: { packages: write }` block.
 
 ### Suggested screenshot spots
 
 Drop screenshots of green Actions runs into `docs/screenshots/` and reference them here:
 
-- `docs/screenshots/ci-green.png` — the matrix CI run.
-- `docs/screenshots/docker-green.png` — the Docker smoke-test run.
+- `docs/screenshots/ci-green.png` â€” the matrix CI run.
+- `docs/screenshots/docker-green.png` â€” the Docker smoke-test run.
 
 ---
 
@@ -226,4 +244,5 @@ Pull requests welcome. A few ground rules:
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT â€” see [LICENSE](LICENSE).
+
